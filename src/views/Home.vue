@@ -11,12 +11,12 @@
         <p>{{ movies[0].overview }}</p>
       </div>
     </div> -->
-    <form @submit.prevent="getMovies(3)" class="search-box">
-      <input type="text" placeholder="Search here" v-model="search" />
-      <router-link :to="'/search'">
-        <input type="submit" value="Search" />
-      </router-link>
-    </form>
+    <router-link :to="'/search'">
+      <form @submit.prevent="getMovies(3)" class="search-box">
+        <input type="text" placeholder="Search here" v-model="search" />
+          <input type="submit" value="Search" />
+      </form>
+    </router-link>
     <h1 class="popular">Popular Movies</h1>
     <div class="movie-grid">
       <div class="movie-grid-item" v-for="movie in movies" :key="movie.id">

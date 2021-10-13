@@ -15,7 +15,7 @@
       <input type="text" placeholder="Search here" v-model="search" />
       <input type="submit" value="Search" />
     </form>
-    <h1 class="popular">Search Movies</h1>
+    <h1 class="popular">Search Results</h1>
     <div class="movie-grid">
       <div class="movie-grid-item" v-for="movie in movies" :key="movie.id">
         <div class="movie-thumb">
@@ -44,8 +44,8 @@ export default {
     const imgurl = env.IMG_URL;
     const backdropurl = env.BACKDROP_URL.large;
     var pageCount = 1;
-    const searchMovies = (page,query) => {
-      if(search.value==""){
+    const searchMovies = (page, query) => {
+      if (search.value == "") {
         search.value = query;
       }
       if (search.value != "") {
@@ -68,25 +68,25 @@ export default {
     };
     const loadFirst = () => {
       pageCount = 1;
-      searchMovies(pageCount,search.value);
+      searchMovies(pageCount, search.value);
     };
     const loadLast = () => {
       pageCount = 500;
-      searchMovies(pageCount,search.value);
+      searchMovies(pageCount, search.value);
     };
     const loadNext = () => {
       pageCount++;
       if (pageCount > 500) {
         pageCount = 1;
       }
-      searchMovies(pageCount,search.value);
+      searchMovies(pageCount, search.value);
     };
     const loadPrev = () => {
       pageCount--;
       if (pageCount < 1) {
         pageCount = 1;
       }
-      searchMovies(pageCount,search.value);
+      searchMovies(pageCount, search.value);
     };
     return {
       search,
