@@ -15,7 +15,7 @@
       <input type="text" placeholder="Search here" v-model="search" />
       <input type="submit" value="search" />
     </form>
-    <h1>Popular Movies</h1>
+    <h1 class="popular">Popular Movies</h1>
     <div class="movie-grid">
       <div class="movie-grid-item" v-for="movie in movies" :key="movie.id">
         <div class="movie-thumb">
@@ -31,13 +31,11 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import { ref, onMounted } from "vue";
 import env from "@/env.js";
 // import MovieData from "@/components/MovieData.vue";
 export default {
-  components: {
-  },
+  components: {},
   setup() {
     const search = ref("");
     const movies = ref([]);
@@ -56,11 +54,11 @@ export default {
         )
         .then((data) => console.log(data));
     };
-    const loadFirst = () =>{
+    const loadFirst = () => {
       pageCount = 1;
       getMovies(pageCount);
     };
-    const loadLast = () =>{
+    const loadLast = () => {
       pageCount = 500;
       getMovies(pageCount);
     };
@@ -96,12 +94,48 @@ export default {
 };
 </script>
 <style scoped>
+.home{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px 60px 20px;
+}
+.search-box {
+  height: 100px;
+}
+.popular {
+  height: 100px;
+}
 button {
-  height: 1.5rem;
-  width: 3rem;
+  height: 30px;
+  width: 50px;
 }
 .movie-grid {
   display: grid;
   grid-template-columns: auto auto auto auto;
+  grid-column-gap: 40px;
+}
+.movie-grid-item {
+  margin-bottom: 40px;
+  background: #353535;
+  max-height: 430px;
+  -webkit-animation: animateGrid 0.5s;
+  animation: animateGrid 0.5s;
+  overflow: hidden;
+}
+.movie-thumb img {
+  width: 500px;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+@media screen and (max-width: 720px){
+  .movie-grid {
+      grid-template-columns: auto auto;
+  }
 }
 </style>
