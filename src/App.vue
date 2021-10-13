@@ -31,8 +31,9 @@ header {
   align-items: center;
   justify-content: center;
   padding: 10px 16px;
-  background-color: #2c3d4e;
+  background-color: #1c1c1c;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+  height: 80px;
 }
 header h1 {
   color: #fff;

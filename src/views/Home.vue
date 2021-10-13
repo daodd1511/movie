@@ -23,10 +23,12 @@
         </div>
       </div>
     </div>
-    <button @click="loadFirst">Load First</button>
-    <button @click="loadPrev">Load Previous</button>
-    <button @click="loadNext">Load Next</button>
-    <button @click="loadLast">Load Last</button>
+    <div class="pagination">
+      <button @click="loadFirst">First</button>
+      <button @click="loadPrev">Prev</button>
+      <button @click="loadNext">Next</button>
+      <button @click="loadLast">Last</button>
+    </div>
   </div>
 </template>
 
@@ -94,10 +96,10 @@ export default {
 };
 </script>
 <style scoped>
-.home{
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 20px 60px 20px;
+.home {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px 60px 20px;
 }
 .search-box {
   height: 100px;
@@ -106,8 +108,14 @@ export default {
   height: 100px;
 }
 button {
-  height: 30px;
-  width: 50px;
+  width: 80px;
+    height: 40px;
+    background-color:#42b883;
+    color: #fff;
+    border: 0;
+    border-radius: 60px;
+    cursor: pointer;
+    font-size: 16px;
 }
 .movie-grid {
   display: grid;
@@ -133,9 +141,20 @@ button {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-@media screen and (max-width: 720px){
+.pagination{
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  justify-content: center;
+  grid-column-gap: 20px;
+}
+@media screen and (max-width: 720px) {
   .movie-grid {
-      grid-template-columns: auto auto;
+    grid-template-columns: auto auto;
+  }
+  button{
+    width: 70px;
+    height: 30px;
+    font-size: 13px;
   }
 }
 </style>
