@@ -11,13 +11,11 @@
         <p>{{ movies[0].overview }}</p>
       </div>
     </div> -->
-    <form @submit.prevent="getMovies(3)" class="search-box">
+    <form @submit.prevent="searchMovies(pageCount)" class="search-box">
       <input type="text" placeholder="Search here" v-model="search" />
-      <router-link :to="'/search'">
-        <input type="submit" value="Search" />
-      </router-link>
+      <input type="submit" value="Search" />
     </form>
-    <h1 class="popular">Popular Movies</h1>
+    <h1 class="popular">Search Movies</h1>
     <div class="movie-grid">
       <div class="movie-grid-item" v-for="movie in movies" :key="movie.id">
         <div class="movie-thumb">
@@ -35,7 +33,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import env from "@/env.js";
 // import MovieData from "@/components/MovieData.vue";
 export default {
@@ -46,41 +44,50 @@ export default {
     const imgurl = env.IMG_URL;
     const backdropurl = env.BACKDROP_URL.large;
     var pageCount = 1;
-    const getMovies = (page) => {
-      if (search.value == "") {
-        fetch(env.API_URL + "&page=" + page)
+    const searchMovies = (page,query) => {
+      if(search.value==""){
+        search.value = query;
+      }
+      if (search.value != "") {
+        fetch(
+          env.SEARCH_URL +
+            "page=" +
+            page +
+            "&query=" +
+            search.value +
+            "&" +
+            env.API_KEY
+        )
           .then((response) => response.json())
-          .then(
-            (data) => ((movies.value = data.results), (pageCount = data.page))
-          )
-          .then((data) => console.log(data));
+          .then((data) => {
+            movies.value = data.results;
+            console.log(search.value);
+            console.log(data);
+          });
       }
     };
     const loadFirst = () => {
       pageCount = 1;
-      getMovies(pageCount);
+      searchMovies(pageCount,search.value);
     };
     const loadLast = () => {
       pageCount = 500;
-      getMovies(pageCount);
+      searchMovies(pageCount,search.value);
     };
     const loadNext = () => {
       pageCount++;
       if (pageCount > 500) {
         pageCount = 1;
       }
-      getMovies(pageCount);
+      searchMovies(pageCount,search.value);
     };
     const loadPrev = () => {
       pageCount--;
       if (pageCount < 1) {
         pageCount = 1;
       }
-      getMovies(pageCount);
+      searchMovies(pageCount,search.value);
     };
-    onMounted(() => {
-      getMovies();
-    });
     return {
       search,
       movies,
@@ -91,7 +98,7 @@ export default {
       loadPrev,
       loadFirst,
       loadLast,
-      getMovies,
+      searchMovies,
     };
   },
 };
@@ -142,6 +149,7 @@ export default {
   border-bottom-right-radius: 8px;
   cursor: pointer;
   font-size: 16px;
+  position: absolute;
   right: 0;
 }
 .search-box input:active {
