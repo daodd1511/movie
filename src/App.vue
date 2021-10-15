@@ -11,11 +11,13 @@
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;200;300;400;500;600&display=swap');
+@import url('https://use.fontawesome.com/releases/v5.13.0/css/all.css');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Fira Sans", sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
 }
 *::selection {
   background: transparentize(#42b883, 0.5);

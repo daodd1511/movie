@@ -14,15 +14,17 @@
     <router-link :to="'/search'">
       <form @submit.prevent="getMovies(3)" class="search-box">
         <input type="text" placeholder="Search here" v-model="search" />
-          <input type="submit" value="Search" />
+        <input type="submit" value="Search" />
       </form>
     </router-link>
     <h1 class="popular">Popular Movies</h1>
     <div class="movie-grid">
       <div class="movie-grid-item" v-for="movie in movies" :key="movie.id">
-        <div class="movie-thumb">
-          <img :src="imgurl + movie.poster_path" alt="" />
-        </div>
+        <router-link :to="'/movie/'+ movie.id" class="movie-link">
+          <div class="movie-thumb">
+            <img :src="imgurl + movie.poster_path" alt="" />
+          </div>
+        </router-link>
       </div>
     </div>
     <div class="pagination">
@@ -35,7 +37,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onBeforeMount } from "vue";
 import env from "@/env.js";
 // import MovieData from "@/components/MovieData.vue";
 export default {
@@ -78,7 +80,7 @@ export default {
       }
       getMovies(pageCount);
     };
-    onMounted(() => {
+    onBeforeMount(() => {
       getMovies();
     });
     return {
@@ -123,8 +125,11 @@ export default {
   background-color: #1c1c1c;
   font-size: 20px;
   padding: 10px 16px;
-  border-radius: 8px;
   transition: 0.4s;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 .search-box input::placeholder {
   color: #f3f3f3;
@@ -140,6 +145,8 @@ export default {
   border: 0;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   cursor: pointer;
   font-size: 16px;
   right: 0;
