@@ -1,16 +1,21 @@
+// eslint-disable-next-line
 <template>
-  <div class="home">
-    <!-- <div class="hero">
-      <img
-        :src="backdropurl + movies[0].backdrop_path"
-        alt="Hero Image"
-        class="hero-img"
-      />
+  <router-link :to="'/movie/' + movies[0].id" class="movie-link">
+    <div
+      class="hero"
+      :style="{
+        background: `linear-gradient(rgba(0, 0, 0, 0) 39%, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%),url('${backdropurl}${movies[0].backdrop_path}'),rgb(28, 28, 28)`,
+      }"
+    >
       <div class="hero-content">
-        <h1>{{ movies[0].title }}</h1>
-        <p>{{ movies[0].overview }}</p>
+        <div class="hero-content-text">
+          <h1>{{ movies[0].title }}</h1>
+          <p>{{ movies[0].overview }}</p>
+        </div>
       </div>
-    </div> -->
+    </div>
+  </router-link>
+  <div class="home">
     <router-link :to="'/search'">
       <form @submit.prevent="getMovies(3)" class="search-box">
         <input type="text" placeholder="Search here" v-model="search" />
@@ -20,7 +25,7 @@
     <h1 class="popular">Popular Movies</h1>
     <div class="movie-grid">
       <div class="movie-grid-item" v-for="movie in movies" :key="movie.id">
-        <router-link :to="'/movie/'+ movie.id" class="movie-link">
+        <router-link :to="'/movie/' + movie.id" class="movie-link">
           <div class="movie-thumb">
             <img :src="imgurl + movie.poster_path" alt="" />
           </div>
@@ -103,6 +108,44 @@ export default {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 20px 60px 20px;
+}
+.hero {
+  background-size: 100%, cover !important;
+  background-position: 50%, 50% !important;
+  width: 100%;
+  height: 600px;
+  position: relative;
+  -webkit-animation: animateHeroimage 1s;
+  animation: animateHeroimage 1s;
+}
+.hero-content {
+  max-width: 1280px;
+  padding: 20px;
+  margin: 0 auto;
+}
+.hero-content-text {
+  z-index: 100;
+  max-width: 700px;
+  position: absolute;
+  bottom: 40px;
+  margin-right: 20px;
+  min-height: 100px;
+  background: transparent;
+  color: #fff;
+}
+.hero-content h1 {
+  font-size: 46px;
+  font-weight: 500;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+}
+.hero-content p {
+  font-size: 22px;
+  font-weight: 200;
+  line-height: 26px;
+  color: #fff;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
 }
 .search-box {
   height: 100px;

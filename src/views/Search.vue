@@ -1,16 +1,5 @@
 <template>
   <div class="home">
-    <!-- <div class="hero">
-      <img
-        :src="backdropurl + movies[0].backdrop_path"
-        alt="Hero Image"
-        class="hero-img"
-      />
-      <div class="hero-content">
-        <h1>{{ movies[0].title }}</h1>
-        <p>{{ movies[0].overview }}</p>
-      </div>
-    </div> -->
     <form @submit.prevent="searchMovies(pageCount)" class="search-box">
       <input type="text" placeholder="Search here" v-model="search" />
       <input type="submit" value="Search" />
@@ -18,9 +7,11 @@
     <h1 class="popular">Search Results</h1>
     <div class="movie-grid">
       <div class="movie-grid-item" v-for="movie in movies" :key="movie.id">
-        <div class="movie-thumb">
-          <img :src="imgurl + movie.poster_path" alt="" />
-        </div>
+        <router-link :to="'/movie/' + movie.id" class="movie-link">
+          <div class="movie-thumb">
+            <img :src="imgurl + movie.poster_path" alt="" />
+          </div>
+        </router-link>
       </div>
     </div>
     <div class="pagination">

@@ -87,9 +87,6 @@ export default {
 </script>
 
 <style scoped>
-.movieinfo {
-  font-family: "Be Vietnam Pro", sans-serif;
-}
 h4 {
   padding-bottom: 20px;
   font-size: 18px;

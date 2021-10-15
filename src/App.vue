@@ -32,14 +32,14 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 16px;
+  padding: 20px;
   background-color: #1c1c1c;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
-  height: 80px;
+  height: 120px;
 }
 header h1 {
   color: #fff;
-  font-size: 28px;
+  font-size: 38px;
 }
 header h1 span {
   color: #42b883;
