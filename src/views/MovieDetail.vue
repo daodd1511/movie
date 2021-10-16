@@ -41,6 +41,29 @@
       </div>
     </div>
   </div>
+  <div class="actor-grid">
+    <h1>Actors</h1>
+    <div class="actor-grid-content">
+      <div class="actor-grid-item" v-for="actor in actors" :key="actor.cast_id">
+        <div class="actor">
+          <img
+            v-if="actor.profile_path != null"
+            :src="actorurl + actor.profile_path"
+            alt="Actor Image"
+            class="actor-image"
+          />
+          <img
+            v-else,
+            src="@/assets/no_image.jpg"
+            alt="Actor Image"
+            class="actor-image"
+          />
+          <span class="actor-name">{{ actor.name }}</span>
+          <span class="actor-character">{{ actor.character }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -68,19 +91,29 @@ export default {
   },
   setup() {
     const movie = ref({});
+    const actors = ref([]);
     const route = useRoute();
     const backdropurl = env.BACKDROP_URL.large;
     const imgurl = env.BACKDROP_URL.overmedium;
+    const actorurl = env.BACKDROP_URL.extrasmall;
     onBeforeMount(() => {
       fetch(env.BASE_URL + "/movie/" + route.params.id + "?" + env.API_KEY)
         .then((response) => response.json())
         .then((data) => (movie.value = data))
+        .then((data) => console.log(data));
+      fetch(
+        env.BASE_URL + "/movie/" + route.params.id + "/credits?" + env.API_KEY
+      )
+        .then((response) => response.json())
+        .then((data) => (actors.value = data.cast))
         .then((data) => console.log(data));
     });
     return {
       movie,
       backdropurl,
       imgurl,
+      actors,
+      actorurl,
     };
   },
 };
@@ -174,5 +207,55 @@ h4 {
 }
 .stat {
   display: flex;
+}
+
+.actor-grid {
+  color: #111;
+  padding-left: 40px;
+}
+.actor-grid h1 {
+  font-size: 36px;
+  font-weight: 500;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  color: #fff !important;
+}
+.actor-grid-content {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+}
+.actor-grid-item {
+  margin: 0 40px 40px 0;
+  background: #353535;
+  max-height: 430px;
+  -webkit-animation: animateGrid 0.5s;
+  animation: animateGrid 0.5s;
+  overflow: hidden;
+  color: #fff;
+}
+.actor {
+  box-sizing: border-box;
+}
+.actor-name,
+.actor-image {
+  width: 40%;
+  float: left;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.actor-image {
+  height: auto;
+}
+.actor-name {
+  font-size: 22px;
+  margin: 10px 20px;
+}
+.actor-character {
+  font-size: 18px;
+  float: left;
+  margin: 0 20px 10px;
+  width: 40%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 </style>

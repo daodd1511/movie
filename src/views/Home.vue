@@ -16,12 +16,6 @@
     </div>
   </router-link>
   <div class="home">
-    <router-link :to="'/search'">
-      <form @submit.prevent="getMovies(3)" class="search-box">
-        <input type="text" placeholder="Search here" v-model="search" />
-        <input type="submit" value="Search" />
-      </form>
-    </router-link>
     <h1 class="popular">Popular Movies</h1>
     <div class="movie-grid">
       <div class="movie-grid-item" v-for="movie in movies" :key="movie.id">
@@ -30,6 +24,21 @@
             <img :src="imgurl + movie.poster_path" alt="" />
           </div>
         </router-link>
+        <div class="movie-content">
+          <div
+            class="rating"
+            :style="{
+              color: getColor(movie.vote_average),
+              border: `3px solid ${getColor(movie.vote_average)}`,
+            }"
+          >
+            <div class="score">
+              {{ movie.vote_average }}
+            </div>
+          </div>
+          <h2>{{ movie.title }}</h2>
+          <p>{{ dayConverter(movie.release_date) }}</p>
+        </div>
       </div>
     </div>
     <div class="pagination">
@@ -47,6 +56,23 @@ import env from "@/env.js";
 // import MovieData from "@/components/MovieData.vue";
 export default {
   components: {},
+  methods: {
+    getColor(score) {
+      var colors = { green: "#02c40c", yellow: "#e8d616", red: "#d20" };
+      if (score >= 7) {
+        return colors.green;
+      } else if (score >= 5) {
+        return colors.yellow;
+      } else {
+        return colors.red;
+      }
+    },
+    dayConverter(date) {
+      var options = { year: "numeric", month: "short", day: "numeric" };
+      var result = new Date(date).toLocaleString("en-US", options);
+      return result;
+    },
+  },
   setup() {
     const search = ref("");
     const movies = ref([]);
@@ -59,8 +85,7 @@ export default {
           .then((response) => response.json())
           .then(
             (data) => ((movies.value = data.results), (pageCount = data.page))
-          )
-          .then((data) => console.log(data));
+          );
       }
     };
     const loadFirst = () => {
@@ -147,59 +172,9 @@ export default {
   margin-block-start: 1em;
   margin-block-end: 1em;
 }
-.search-box {
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-.search-box input {
-  display: block;
-  appearance: none;
-  border: none;
-  outline: none;
-  background: none;
-}
-.search-box input[type="text"] {
-  width: 100%;
-  height: 60px;
-  color: #fff;
-  background-color: #1c1c1c;
-  font-size: 20px;
-  padding: 10px 16px;
-  transition: 0.4s;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-.search-box input::placeholder {
-  color: #f3f3f3;
-}
-.search-box input:focus {
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
-}
-.search-box input[type="submit"] {
-  width: 120px;
-  height: 60px;
-  background-color: #42b883;
-  color: #fff;
-  border: 0;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  cursor: pointer;
-  font-size: 16px;
-  right: 0;
-}
-.search-box input:active {
-  background-color: #3b8070;
-}
-
 .popular {
-  height: 100px;
+  padding: 40px 0;
+  color: #fff;
 }
 button {
   width: 80px;
@@ -218,11 +193,12 @@ button {
 }
 .movie-grid-item {
   margin-bottom: 40px;
-  background: #353535;
-  max-height: 430px;
+  background: #242424;
+  max-height: 630px;
   -webkit-animation: animateGrid 0.5s;
   animation: animateGrid 0.5s;
   overflow: hidden;
+  border-radius: 10px;
 }
 .movie-thumb img {
   width: 500px;
@@ -234,6 +210,34 @@ button {
   transition: all 0.3s;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+}
+.movie-content {
+  color: #fff;
+  padding: 20px;
+  position: relative;
+}
+.movie-content .rating {
+  position: absolute;
+  top: -22px;
+  left: 15px;
+  background-color: #f7f7f7;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 700;
+}
+.movie-content h2 {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 0 10px 0;
+}
+.movie-content p {
+  font-size: 14px;
+  font-weight: 300;
 }
 .pagination {
   display: grid;

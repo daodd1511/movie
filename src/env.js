@@ -3,6 +3,7 @@ const BASE_URL = 'https://api.themoviedb.org/3'
 const API_URL = BASE_URL + '/discover/movie?sort_by=popularity.desc&' + API_KEY;
 const IMG_URL = 'http://image.tmdb.org/t/p/w300'; 
 const BACKDROP_URL = {
+  extrasmall: 'http://image.tmdb.org/t/p/w154',
   small: "https://image.tmdb.org/t/p/w185",
   medium: "https://image.tmdb.org/t/p/w300",
   overmedium: "https://image.tmdb.org/t/p/w500",

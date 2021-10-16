@@ -4,6 +4,11 @@
     <router-link to="/">
       <h1><span>Vue</span>Movies</h1>
     </router-link>
+      <router-link :to="'/search'">
+        <div class="search-btn">
+          <i class="fas fa-search"></i>
+        </div>
+      </router-link>
   </header>
   <main>
     <router-view />
@@ -24,6 +29,7 @@
 }
 
 body {
+  background-color: #111;
 }
 a {
   text-decoration: none;
@@ -31,11 +37,10 @@ a {
 header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
+  justify-content: space-between;
+  padding: 40px;
   background-color: #1c1c1c;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
-  height: 120px;
+  height: 100px;
 }
 header h1 {
   color: #fff;
@@ -43,5 +48,11 @@ header h1 {
 }
 header h1 span {
   color: #42b883;
+}
+
+.search-btn{
+  color: #42b883;
+  font-size: 28px;
+  padding-right: 20px;
 }
 </style>
