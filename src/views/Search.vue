@@ -1,20 +1,44 @@
 <template>
   <div class="home">
-    <form @submit.prevent="searchMovies(pageCount)" class="search-box">
+    <form
+      @submit.prevent="searchMovies(pageCount)"
+      class="search-box"
+      @submit="isSubmitted = true"
+    >
       <input type="text" placeholder="Search here" v-model="search" />
       <input type="submit" value="Search" />
     </form>
-    <h1 class="popular">Search Results</h1>
+    <h1 class="popular" v-if="isSubmitted">Search Results</h1>
     <div class="movie-grid">
       <div class="movie-grid-item" v-for="movie in movies" :key="movie.id">
         <router-link :to="'/movie/' + movie.id" class="movie-link">
           <div class="movie-thumb">
-            <img :src="imgurl + movie.poster_path" alt="" />
+            <img
+              v-if="movie.poster_path != null"
+              :src="imgurl + movie.poster_path"
+              alt="Movie Image"
+            />
+            <img v-else, src="@/assets/no_image.jpg" alt="Movie Image" />
           </div>
         </router-link>
+        <div class="movie-content">
+          <div
+            class="rating"
+            :style="{
+              color: getColor(movie.vote_average),
+              border: `3px solid ${getColor(movie.vote_average)}`,
+            }"
+          >
+            <div class="score">
+              {{ movie.vote_average }}
+            </div>
+          </div>
+          <h2>{{ movie.title }}</h2>
+          <p>{{ dayConverter(movie.release_date) }}</p>
+        </div>
       </div>
     </div>
-    <div class="pagination">
+    <div class="pagination" v-if="isSubmitted">
       <button @click="loadFirst">First</button>
       <button @click="loadPrev">Prev</button>
       <button @click="loadNext">Next</button>
@@ -28,12 +52,34 @@ import { ref } from "vue";
 import env from "@/env.js";
 // import MovieData from "@/components/MovieData.vue";
 export default {
-  components: {},
+  data() {
+    return {
+      isSubmitted: false,
+    };
+  },
+  methods: {
+    getColor(score) {
+      var colors = { green: "#02c40c", yellow: "#e8d616", red: "#d20" };
+      if (score >= 7) {
+        return colors.green;
+      } else if (score >= 5) {
+        return colors.yellow;
+      } else {
+        return colors.red;
+      }
+    },
+    dayConverter(date) {
+      var options = { year: "numeric", month: "short", day: "numeric" };
+      var result = new Date(date).toLocaleString("en-US", options);
+      return result;
+    },
+  },
   setup() {
     const search = ref("");
     const movies = ref([]);
     const imgurl = env.IMG_URL;
     const backdropurl = env.BACKDROP_URL.large;
+    var totalpage = 0;
     var pageCount = 1;
     const searchMovies = (page, query) => {
       if (search.value == "") {
@@ -52,25 +98,28 @@ export default {
           .then((response) => response.json())
           .then((data) => {
             movies.value = data.results;
-            console.log(search.value);
-            console.log(data);
+            totalpage = data.total_pages;
+            // console.log(totalpage);
+            // console.log(data);
           });
       }
     };
     const loadFirst = () => {
       pageCount = 1;
       searchMovies(pageCount, search.value);
+      window.scrollTo(0,0);
     };
     const loadLast = () => {
-      pageCount = 500;
+      pageCount = totalpage;
       searchMovies(pageCount, search.value);
+      window.scrollTo(0,0);
     };
     const loadNext = () => {
-      pageCount++;
-      if (pageCount > 500) {
-        pageCount = 1;
+      if (pageCount < totalpage) {
+        pageCount++;
       }
       searchMovies(pageCount, search.value);
+      window.scrollTo(0,0);
     };
     const loadPrev = () => {
       pageCount--;
@@ -78,6 +127,7 @@ export default {
         pageCount = 1;
       }
       searchMovies(pageCount, search.value);
+      window.scrollTo(0,0);
     };
     return {
       search,
@@ -85,6 +135,7 @@ export default {
       imgurl,
       backdropurl,
       pageCount,
+      totalpage,
       loadNext,
       loadPrev,
       loadFirst,
@@ -95,6 +146,9 @@ export default {
 };
 </script>
 <style scoped>
+.hidden {
+  display: none;
+}
 .home {
   max-width: 1280px;
   margin: 0 auto;
@@ -169,10 +223,11 @@ button {
 .movie-grid-item {
   margin-bottom: 40px;
   background: #353535;
-  max-height: 430px;
+  max-height: 800px;
   -webkit-animation: animateGrid 0.5s;
   animation: animateGrid 0.5s;
   overflow: hidden;
+  border-radius: 10px;
 }
 .movie-thumb img {
   width: 500px;
@@ -185,8 +240,36 @@ button {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+.movie-content {
+  color: #fff;
+  padding: 20px;
+  position: relative;
+}
+.movie-content .rating {
+  position: absolute;
+  top: -22px;
+  left: 15px;
+  background-color: #f7f7f7;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 700;
+}
+.movie-content h2 {
+  font-size: 18px;
+  font-weight: 600;
+  padding: 10px 0 10px 0;
+}
+.movie-content p {
+  font-size: 14px;
+  font-weight: 300;
+}
 .pagination {
-  display: grid;
+  display: grid !important;
   grid-template-columns: auto auto auto auto;
   justify-content: center;
   grid-column-gap: 20px;

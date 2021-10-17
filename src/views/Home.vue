@@ -1,20 +1,20 @@
 // eslint-disable-next-line
 <template>
-  <router-link :to="'/movie/' + movies[0].id" class="movie-link">
-    <div
-      class="hero"
-      :style="{
-        background: `linear-gradient(rgba(0, 0, 0, 0) 39%, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%),url('${backdropurl}${movies[0].backdrop_path}'),rgb(28, 28, 28)`,
-      }"
-    >
-      <div class="hero-content">
-        <div class="hero-content-text">
+  <div
+    class="hero"
+    :style="{
+      background: `linear-gradient(rgba(0, 0, 0, 0) 39%, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%),url('${backdropurl}${movies[0].backdrop_path}'),rgb(28, 28, 28)`,
+    }"
+  >
+    <div class="hero-content">
+      <div class="hero-content-text">
+        <router-link :to="'/movie/' + movies[0].id" class="movie-link">
           <h1>{{ movies[0].title }}</h1>
-          <p>{{ movies[0].overview }}</p>
-        </div>
+        </router-link>
+        <p>{{ movies[0].overview }}</p>
       </div>
     </div>
-  </router-link>
+  </div>
   <div class="home">
     <h1 class="popular">Popular Movies</h1>
     <div class="movie-grid">
@@ -91,10 +91,12 @@ export default {
     const loadFirst = () => {
       pageCount = 1;
       getMovies(pageCount);
+      window.scrollTo(0, 0);
     };
     const loadLast = () => {
       pageCount = 500;
       getMovies(pageCount);
+      window.scrollTo(0, 0);
     };
     const loadNext = () => {
       pageCount++;
@@ -102,6 +104,7 @@ export default {
         pageCount = 1;
       }
       getMovies(pageCount);
+      window.scrollTo(0, 0);
     };
     const loadPrev = () => {
       pageCount--;
@@ -109,6 +112,7 @@ export default {
         pageCount = 1;
       }
       getMovies(pageCount);
+      window.scrollTo(0, 0);
     };
     onBeforeMount(() => {
       getMovies();
@@ -163,6 +167,11 @@ export default {
   font-weight: 500;
   margin-block-start: 0.67em;
   margin-block-end: 0.67em;
+  /* text-decoration: none; */
+  color: #fff;
+}
+.hero-content h1:hover{
+  color:#42b883;
 }
 .hero-content p {
   font-size: 22px;
@@ -231,7 +240,7 @@ button {
   font-weight: 700;
 }
 .movie-content h2 {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   padding: 10px 0 10px 0;
 }
