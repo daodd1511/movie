@@ -1,20 +1,43 @@
 // eslint-disable-next-line
 <template>
-  <div
-    class="hero"
-    :style="{
-      background: `linear-gradient(rgba(0, 0, 0, 0) 39%, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%),url('${backdropurl}${movies[0].backdrop_path}'),rgb(28, 28, 28)`,
-    }"
-  >
-    <div class="hero-content">
-      <div class="hero-content-text">
-        <router-link :to="'/movie/' + movies[0].id" class="movie-link">
-          <h1>{{ movies[0].title }}</h1>
-        </router-link>
-        <p>{{ movies[0].overview }}</p>
-      </div>
+  <div class="carousel-container">
+    <div
+      class="carousel"
+      v-for="slide in slides"
+      :key="slide"
+      :visibleSlide="visibleSlide"
+      :direction="direction"
+    >
+      <transition :name="direction" mode="in-out">
+        <div
+          v-show="visibleSlide === slide"
+          class="hero"
+          :style="{
+            background: `linear-gradient(rgba(0, 0, 0, 0) 39%, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%),url('${backdropurl}${movies[slide].backdrop_path}'),rgb(28, 28, 28)`,
+          }"
+        >
+          <div class="hero-content">
+            <div class="hero-content-text">
+              <router-link
+                :to="'/movie/' + movies[slide].id"
+                class="movie-link"
+              >
+                <h1>{{ movies[slide].title }}</h1>
+              </router-link>
+              <p>{{ movies[slide].overview }}</p>
+            </div>
+          </div>
+          <div class="nextSlide" @click="nextSlide">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+          <div class="prevSlide" @click="prevSlide">
+            <i class="fas fa-chevron-left"></i>
+          </div>
+        </div>
+      </transition>
     </div>
   </div>
+
   <div class="home">
     <h1 class="popular">Popular Movies</h1>
     <div class="movie-grid">
@@ -53,10 +76,36 @@
 <script>
 import { ref, onBeforeMount } from "vue";
 import env from "@/env.js";
-// import MovieData from "@/components/MovieData.vue";
 export default {
-  components: {},
+  data() {
+    return {
+      slides: [0, 1, 2, 3, 4],
+      visibleSlide: 0,
+      direction: "",
+    };
+  },
+  computed: {
+    slideLen() {
+      return this.slides.length;
+    },
+  },
   methods: {
+    nextSlide() {
+      if (this.visibleSlide >= this.slideLen - 1) {
+        this.visibleSlide = 0;
+      } else {
+        this.visibleSlide++;
+      }
+      this.direction = "left";
+    },
+    prevSlide() {
+      if (this.visibleSlide <= 0) {
+        this.visibleSlide = this.slideLen - 1;
+      } else {
+        this.visibleSlide--;
+      }
+      this.direction = "right";
+    },
     getColor(score) {
       var colors = { green: "#02c40c", yellow: "#e8d616", red: "#d20" };
       if (score >= 7) {
@@ -76,6 +125,7 @@ export default {
   setup() {
     const search = ref("");
     const movies = ref([]);
+    const features = ref([]);
     const imgurl = env.IMG_URL;
     const backdropurl = env.BACKDROP_URL.large;
     var pageCount = 1;
@@ -84,7 +134,11 @@ export default {
         fetch(env.API_URL + "&page=" + page)
           .then((response) => response.json())
           .then(
-            (data) => ((movies.value = data.results), (pageCount = data.page))
+            (data) => (
+              (movies.value = data.results),
+              (pageCount = data.page),
+              console.log(movies.value)
+            )
           );
       }
     };
@@ -120,6 +174,7 @@ export default {
     return {
       search,
       movies,
+      features,
       imgurl,
       backdropurl,
       pageCount,
@@ -138,14 +193,42 @@ export default {
   margin: 0 auto;
   padding: 0 20px 60px 20px;
 }
+.carousel-container {
+  height: 600px;
+  position: relative;
+}
 .hero {
   background-size: 100%, cover !important;
   background-position: 50%, 50% !important;
   width: 100%;
-  height: 600px;
-  position: relative;
-  -webkit-animation: animateHeroimage 1s;
-  animation: animateHeroimage 1s;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* -webkit-animation: animateHeroimage 1s;
+  animation: animateHeroimage 1s; */
+}
+.hero .nextSlide,
+.prevSlide {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  color: white;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  width: 50px;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.hero .nextSlide {
+  right: 0;
+}
+.hero .prevSlide {
+  left: 0;
 }
 .hero-content {
   max-width: 1280px;
@@ -170,8 +253,8 @@ export default {
   /* text-decoration: none; */
   color: #fff;
 }
-.hero-content h1:hover{
-  color:#42b883;
+.hero-content h1:hover {
+  color: #42b883;
 }
 .hero-content p {
   font-size: 22px;
@@ -254,6 +337,53 @@ button {
   justify-content: center;
   grid-column-gap: 20px;
 }
+
+.left-enter-active {
+  animation: leftInAnimation 0.6s ease-in-out;
+}
+.left-leave-active {
+  animation: leftOutAnimation 0.6s ease-in-out;
+}
+.right-enter-active {
+  animation: rightInAnimation 0.6s ease-in-out;
+}
+.right-leave-active {
+  animation: rightOutAnimation 0.6s ease-in-out;
+}
+/* Animation */
+@keyframes leftInAnimation {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+@keyframes leftOutAnimation {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes rightInAnimation {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+@keyframes rightOutAnimation {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
 @media screen and (max-width: 720px) {
   .movie-grid {
     grid-template-columns: auto auto;
