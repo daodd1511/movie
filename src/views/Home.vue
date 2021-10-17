@@ -196,6 +196,7 @@ export default {
 .carousel-container {
   height: 600px;
   position: relative;
+  overflow-x: hidden;
 }
 .hero {
   background-size: 100%, cover !important;
