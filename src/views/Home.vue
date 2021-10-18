@@ -1,30 +1,32 @@
 // eslint-disable-next-line
 <template>
   <div class="carousel-container">
+    {{movies[0].id}}
     <div
       class="carousel"
-      v-for="slide in slides"
-      :key="slide"
+      v-for="(feature, index) in features"
+      :key="feature.id"
       :visibleSlide="visibleSlide"
       :direction="direction"
     >
       <transition :name="direction" mode="in-out">
         <div
-          v-show="visibleSlide === slide"
+          v-show="visibleSlide === index"
+          v-touch:swipe.left="nextSlide"
+          v-touch:swipe.right="prevSlide"
           class="hero"
           :style="{
-            background: `linear-gradient(rgba(0, 0, 0, 0) 39%, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%),url('${backdropurl}${movies[slide].backdrop_path}'),rgb(28, 28, 28)`,
+            background: `linear-gradient(rgba(0, 0, 0, 0) 39%, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%),url('${backdropurl}${feature.backdrop_path}'),rgb(28, 28, 28)`,
           }"
         >
           <div class="hero-content">
             <div class="hero-content-text">
-              <router-link
-                :to="'/movie/' + movies[slide].id"
-                class="movie-link"
-              >
-                <h1>{{ movies[slide].title }}</h1>
-              </router-link>
-              <p>{{ movies[slide].overview }}</p>
+              <h1>
+                <router-link :to="'/movie/' + feature.id" class="movie-link">
+                  <span>{{ feature.title }}</span>
+                </router-link>
+              </h1>
+              <p>{{ feature.overview }}</p>
             </div>
           </div>
           <div class="nextSlide" @click="nextSlide">
@@ -90,6 +92,10 @@ export default {
     },
   },
   methods: {
+    // Chỉ cần 1 event để kích hoạt là xong
+    autoplay(control) {
+      setInterval(control, 5000);
+    },
     nextSlide() {
       if (this.visibleSlide >= this.slideLen - 1) {
         this.visibleSlide = 0;
@@ -137,7 +143,8 @@ export default {
             (data) => (
               (movies.value = data.results),
               (pageCount = data.page),
-              console.log(movies.value)
+              getFeature(data.results)
+              // console.log(movies.value)
             )
           );
       }
@@ -167,6 +174,21 @@ export default {
       }
       getMovies(pageCount);
       window.scrollTo(0, 0);
+    };
+    const getFeature = (data) => {
+      const numberOfFeatures = 5;
+      features.value.splice(0, features.value.length)
+      var temp = [];
+      for (var i = 0; i < data.length; i++) {
+        temp.push(data[i]);
+      }
+      temp.sort(function (a, b) {
+        return b.vote_average - a.vote_average;
+      });
+      for (var j = 0; j < numberOfFeatures; j++) {
+        features.value.push(temp[j]);
+      }
+      // console.log(features.value.length);
     };
     onBeforeMount(() => {
       getMovies();
@@ -208,6 +230,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
+  cursor: move;
   /* -webkit-animation: animateHeroimage 1s;
   animation: animateHeroimage 1s; */
 }
@@ -246,15 +269,16 @@ export default {
   background: transparent;
   color: #fff;
 }
-.hero-content h1 {
+.hero-content h1 span {
   font-size: 46px;
   font-weight: 500;
   margin-block-start: 0.67em;
   margin-block-end: 0.67em;
   /* text-decoration: none; */
   color: #fff;
+  user-select: none;
 }
-.hero-content h1:hover {
+.hero-content h1 span:hover {
   color: #42b883;
 }
 .hero-content p {
@@ -264,6 +288,7 @@ export default {
   color: #fff;
   margin-block-start: 1em;
   margin-block-end: 1em;
+  user-select: none;
 }
 .popular {
   padding: 40px 0;

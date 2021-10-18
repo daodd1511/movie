@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="search">
     <form
       @submit.prevent="searchMovies(pageCount)"
       class="search-box"
@@ -149,7 +149,7 @@ export default {
 .hidden {
   display: none;
 }
-.home {
+.search {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 20px 60px 20px;

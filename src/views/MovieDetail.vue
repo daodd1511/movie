@@ -100,13 +100,13 @@ export default {
       fetch(env.BASE_URL + "/movie/" + route.params.id + "?" + env.API_KEY)
         .then((response) => response.json())
         .then((data) => (movie.value = data))
-        .then((data) => console.log(data));
+        // .then((data) => console.log(data));
       fetch(
         env.BASE_URL + "/movie/" + route.params.id + "/credits?" + env.API_KEY
       )
         .then((response) => response.json())
         .then((data) => (actors.value = data.cast))
-        .then((data) => console.log(data));
+        // .then((data) => console.log(data));
     });
     return {
       movie,
@@ -257,5 +257,11 @@ h4 {
   width: 40%;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+@media screen and (max-width: 720px) {
+  .actor-grid-content {
+    grid-template-columns: auto auto;
+  }
 }
 </style>
