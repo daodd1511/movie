@@ -312,7 +312,6 @@ button {
 .movie-grid-item {
   margin-bottom: 40px;
   background: #242424;
-  max-height: 630px;
   -webkit-animation: animateGrid 0.5s;
   animation: animateGrid 0.5s;
   overflow: hidden;
