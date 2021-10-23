@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 <template>
   <div class="carousel-container">
-    {{movies[0].id}}
+    {{ movies[0].id }}
     <div
       class="carousel"
       v-for="(feature, index) in features"
@@ -18,7 +18,7 @@
           v-touch:swipe.right="prevSlide"
           class="hero"
           :style="{
-            background: `linear-gradient(rgba(0, 0, 0, 0) 39%, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%),url('${backdropurl}${feature.poster_path}'),rgb(28, 28, 28)` ,
+            background: `linear-gradient(rgba(0, 0, 0, 0) 39%, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%),url('${backdropurl}${feature.poster_path}'),rgb(28, 28, 28)`,
           }"
         >
           <div class="hero-content">
@@ -40,7 +40,7 @@
           v-touch:swipe.right="prevSlide"
           class="hero"
           :style="{
-            background: `linear-gradient(rgba(0, 0, 0, 0) 39%, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%),url('${backdropurl}${feature.backdrop_path}'),rgb(28, 28, 28)` ,
+            background: `linear-gradient(rgba(0, 0, 0, 0) 39%, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%),url('${backdropurl}${feature.backdrop_path}'),rgb(28, 28, 28)`,
           }"
         >
           <div class="hero-content">
@@ -85,7 +85,9 @@
               {{ movie.vote_average }}
             </div>
           </div>
-          <h2>{{ movie.title }}</h2>
+          <router-link :to="'/movie/' + movie.id" class="movie-link">
+            <h2>{{ movie.title }}</h2>
+          </router-link>
           <p>{{ dayConverter(movie.release_date) }}</p>
         </div>
       </div>
@@ -205,7 +207,7 @@ export default {
     };
     const getFeature = (data) => {
       const numberOfFeatures = 5;
-      features.value.splice(0, features.value.length)
+      features.value.splice(0, features.value.length);
       var temp = [];
       for (var i = 0; i < data.length; i++) {
         temp.push(data[i]);
@@ -242,7 +244,7 @@ export default {
       passive: true,
     });
   },
-  mounted(){
+  mounted() {
     this.mobileBreakpoint();
     window.addEventListener("resize", this.mobileBreakpoint, { passive: true });
   },
@@ -390,6 +392,11 @@ button {
   font-size: 18px;
   font-weight: 600;
   padding: 10px 0 10px 0;
+  text-decoration: none;
+  color: #fff;
+}
+.movie-content h2:hover{
+  color: #42b883;
 }
 .movie-content p {
   font-size: 14px;
@@ -447,20 +454,20 @@ button {
     transform: translateX(100%);
   }
 }
-@keyframes animateHeroimage{
-  0%{
+@keyframes animateHeroimage {
+  0% {
     opacity: 0;
   }
-  100%{
-    opacity:1;
+  100% {
+    opacity: 1;
   }
 }
-@keyframes animateGrid{
-  0%{
+@keyframes animateGrid {
+  0% {
     opacity: 0;
   }
-  100%{
-    opacity:1;
+  100% {
+    opacity: 1;
   }
 }
 @media screen and (max-width: 720px) {
@@ -472,13 +479,13 @@ button {
     height: 30px;
     font-size: 13px;
   }
-  .hero-content-text h1 span{
+  .hero-content-text h1 span {
     font-size: 36px;
   }
-  .hero-content-text p{
+  .hero-content-text p {
     font-size: 16px;
   }
-  .hero-content{
+  .hero-content {
     padding: 20px;
   }
 }

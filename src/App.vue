@@ -4,11 +4,11 @@
     <router-link to="/">
       <h1><span>Vue</span>Movies</h1>
     </router-link>
-      <router-link :to="'/search'">
-        <div class="search-btn">
-          <i class="fas fa-search"></i>
-        </div>
-      </router-link>
+    <router-link :to="'/search'">
+      <div class="search-btn">
+        <i class="fas fa-search"></i>
+      </div>
+    </router-link>
   </header>
   <main>
     <router-view />
@@ -16,13 +16,13 @@
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;200;300;400;500;600&display=swap');
-@import url('https://use.fontawesome.com/releases/v5.13.0/css/all.css');
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;200;300;400;500;600&display=swap");
+@import url("https://use.fontawesome.com/releases/v5.13.0/css/all.css");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Be Vietnam Pro', sans-serif;
+  font-family: "Be Vietnam Pro", sans-serif;
 }
 *::selection {
   background: transparentize(#42b883, 0.5);
@@ -50,7 +50,7 @@ header h1 span {
   color: #42b883;
 }
 
-.search-btn{
+.search-btn {
   color: #42b883;
   font-size: 28px;
   padding-right: 20px;
@@ -59,13 +59,12 @@ header h1 span {
   header {
     padding: 25px;
   }
-  header h1{
+  header h1 {
     font-size: 30px;
   }
   .search-btn {
     padding: 0;
     font-size: 25px;
   }
-
 }
 </style>

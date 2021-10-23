@@ -33,7 +33,9 @@
               {{ movie.vote_average }}
             </div>
           </div>
-          <h2>{{ movie.title }}</h2>
+          <router-link :to="'/movie/' + movie.id" class="movie-link">
+            <h2>{{ movie.title }}</h2>
+          </router-link>
           <p>{{ dayConverter(movie.release_date) }}</p>
         </div>
       </div>
@@ -107,19 +109,19 @@ export default {
     const loadFirst = () => {
       pageCount = 1;
       searchMovies(pageCount, search.value);
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
     };
     const loadLast = () => {
       pageCount = totalpage;
       searchMovies(pageCount, search.value);
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
     };
     const loadNext = () => {
       if (pageCount < totalpage) {
         pageCount++;
       }
       searchMovies(pageCount, search.value);
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
     };
     const loadPrev = () => {
       pageCount--;
@@ -127,7 +129,7 @@ export default {
         pageCount = 1;
       }
       searchMovies(pageCount, search.value);
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
     };
     return {
       search,
@@ -262,6 +264,11 @@ button {
   font-size: 18px;
   font-weight: 600;
   padding: 10px 0 10px 0;
+  text-decoration: none;
+  color: #fff;
+}
+.movie-content h2:hover {
+  color: #42b883;
 }
 .movie-content p {
   font-size: 14px;
