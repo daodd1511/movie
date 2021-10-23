@@ -55,4 +55,17 @@ header h1 span {
   font-size: 28px;
   padding-right: 20px;
 }
+@media screen and (max-width: 600px) {
+  header {
+    padding: 25px;
+  }
+  header h1{
+    font-size: 30px;
+  }
+  .search-btn {
+    padding: 0;
+    font-size: 25px;
+  }
+
+}
 </style>
