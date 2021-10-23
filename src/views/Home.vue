@@ -272,8 +272,6 @@ export default {
   right: 0;
   bottom: 0;
   cursor: move;
-  -webkit-animation: animateHeroimage 1s;
-  animation: animateHeroimage 1s;
 }
 .hero .nextSlide,
 .prevSlide {
