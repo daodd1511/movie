@@ -10,13 +10,37 @@
       :direction="direction"
     >
       <transition :name="direction" mode="in-out">
+        <!-- Mobile display -->
         <div
+          v-if="isMobile"
           v-show="visibleSlide === index"
           v-touch:swipe.left="nextSlide"
           v-touch:swipe.right="prevSlide"
           class="hero"
           :style="{
-            background: `linear-gradient(rgba(0, 0, 0, 0) 39%, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%),url('${backdropurl}${feature.backdrop_path}'),rgb(28, 28, 28)`,
+            background: `linear-gradient(rgba(0, 0, 0, 0) 39%, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%),url('${backdropurl}${feature.poster_path}'),rgb(28, 28, 28)` ,
+          }"
+        >
+          <div class="hero-content">
+            <div class="hero-content-text">
+              <h1>
+                <router-link :to="'/movie/' + feature.id" class="movie-link">
+                  <span>{{ feature.title }}</span>
+                </router-link>
+              </h1>
+              <p>{{ feature.overview }}</p>
+            </div>
+          </div>
+        </div>
+        <!-- Normal display -->
+        <div
+          v-else
+          v-show="visibleSlide === index"
+          v-touch:swipe.left="nextSlide"
+          v-touch:swipe.right="prevSlide"
+          class="hero"
+          :style="{
+            background: `linear-gradient(rgba(0, 0, 0, 0) 39%, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%),url('${backdropurl}${feature.backdrop_path}'),rgb(28, 28, 28)` ,
           }"
         >
           <div class="hero-content">
@@ -84,6 +108,7 @@ export default {
       slides: [0, 1, 2, 3, 4],
       visibleSlide: 0,
       direction: "",
+      isMobile: false,
     };
   },
   computed: {
@@ -92,6 +117,9 @@ export default {
     },
   },
   methods: {
+    mobileBreakpoint() {
+      this.isMobile = window.innerWidth < 600;
+    },
     // Chỉ cần 1 event để kích hoạt là xong
     autoplay(control) {
       setInterval(control, 5000);
@@ -143,8 +171,8 @@ export default {
             (data) => (
               (movies.value = data.results),
               (pageCount = data.page),
-              getFeature(data.results)
-              // console.log(movies.value)
+              getFeature(data.results),
+              console.log(movies.value)
             )
           );
       }
@@ -207,6 +235,17 @@ export default {
       getMovies,
     };
   },
+  beforeUnmount() {
+    if (typeof window === "undefined") return;
+
+    window.removeEventListener("resize", this.mobileBreakpoint, {
+      passive: true,
+    });
+  },
+  mounted(){
+    this.mobileBreakpoint();
+    window.addEventListener("resize", this.mobileBreakpoint, { passive: true });
+  },
 };
 </script>
 <style scoped>
@@ -224,7 +263,7 @@ export default {
   background-size: 100%, cover !important;
   background-position: 50%, 50% !important;
   width: 100%;
-  height: 100%;
+  height: 600px;
   position: absolute;
   top: 0;
   left: 0;
@@ -256,7 +295,7 @@ export default {
 }
 .hero-content {
   max-width: 1280px;
-  padding: 20px;
+  padding: 20px 50px;
   margin: 0 auto;
 }
 .hero-content-text {
@@ -417,6 +456,15 @@ button {
     width: 70px;
     height: 30px;
     font-size: 13px;
+  }
+  .hero-content-text h1 span{
+    font-size: 36px;
+  }
+  .hero-content-text p{
+    font-size: 16px;
+  }
+  .hero-content{
+    padding: 20px;
   }
 }
 </style>
