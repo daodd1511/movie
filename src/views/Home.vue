@@ -270,8 +270,8 @@ export default {
   right: 0;
   bottom: 0;
   cursor: move;
-  /* -webkit-animation: animateHeroimage 1s;
-  animation: animateHeroimage 1s; */
+  -webkit-animation: animateHeroimage 1s;
+  animation: animateHeroimage 1s;
 }
 .hero .nextSlide,
 .prevSlide {
@@ -447,7 +447,22 @@ button {
     transform: translateX(100%);
   }
 }
-
+@keyframes animateHeroimage{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity:1;
+  }
+}
+@keyframes animateGrid{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity:1;
+  }
+}
 @media screen and (max-width: 720px) {
   .movie-grid {
     grid-template-columns: auto auto;

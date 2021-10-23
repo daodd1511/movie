@@ -4,7 +4,6 @@
     :style="{ background: `url('${backdropurl}${movie.backdrop_path}')` }"
   >
     <div class="movieinfo-container">
-      <div class="movie-rating"></div>
       <div class="movieinfo-thumbnail">
         <div class="movie-thumb">
           <img :src="imgurl + movie.poster_path" alt="Movie Poster" />
@@ -45,22 +44,20 @@
     <h1>Actors</h1>
     <div class="actor-grid-content">
       <div class="actor-grid-item" v-for="actor in actors" :key="actor.cast_id">
-        <div class="actor">
-          <img
-            v-if="actor.profile_path != null"
-            :src="actorurl + actor.profile_path"
-            alt="Actor Image"
-            class="actor-image"
-          />
-          <img
-            v-else,
-            src="@/assets/no_image.jpg"
-            alt="Actor Image"
-            class="actor-image"
-          />
-          <span class="actor-name">{{ actor.name }}</span>
-          <span class="actor-character">{{ actor.character }}</span>
-        </div>
+        <img
+          v-if="actor.profile_path != null"
+          :src="actorurl + actor.profile_path"
+          alt="Actor Image"
+          class="actor-image"
+        />
+        <img
+          v-else,
+          src="@/assets/no_image.jpg"
+          alt="Actor Image"
+          class="actor-image"
+        />
+        <div class="actor-name">{{ actor.name }}</div>
+        <div class="actor-character">{{ actor.character }}</div>
       </div>
     </div>
   </div>
@@ -99,14 +96,14 @@ export default {
     onBeforeMount(() => {
       fetch(env.BASE_URL + "/movie/" + route.params.id + "?" + env.API_KEY)
         .then((response) => response.json())
-        .then((data) => (movie.value = data))
-        // .then((data) => console.log(data));
+        .then((data) => (movie.value = data));
+      // .then((data) => console.log(data));
       fetch(
         env.BASE_URL + "/movie/" + route.params.id + "/credits?" + env.API_KEY
       )
         .then((response) => response.json())
-        .then((data) => (actors.value = data.cast))
-        // .then((data) => console.log(data));
+        .then((data) => (actors.value = data.cast));
+      // .then((data) => console.log(data));
     });
     return {
       movie,
@@ -211,7 +208,7 @@ h4 {
 
 .actor-grid {
   color: #111;
-  padding-left: 40px;
+  padding: 0 40px;
 }
 .actor-grid h1 {
   font-size: 36px;
@@ -222,46 +219,100 @@ h4 {
 }
 .actor-grid-content {
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto auto;
+  column-gap: 40px;
+  row-gap: 40px;
 }
 .actor-grid-item {
-  margin: 0 40px 40px 0;
   background: #353535;
-  max-height: 430px;
-  -webkit-animation: animateGrid 0.5s;
+  /* max-height: 430px; */
   animation: animateGrid 0.5s;
   overflow: hidden;
   color: #fff;
 }
-.actor {
-  box-sizing: border-box;
-}
-.actor-name,
 .actor-image {
-  width: 40%;
-  float: left;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.actor-image {
-  height: auto;
+  width: 100%;
 }
 .actor-name {
-  font-size: 22px;
-  margin: 10px 20px;
+  font-size: 20px;
+  font-weight: 300;
+  text-align: center;
+  padding: 10px 5px;
 }
 .actor-character {
-  font-size: 18px;
-  float: left;
-  margin: 0 20px 10px;
-  width: 40%;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+  font-size: 16px;
+  font-weight: 200;
+  text-align: center;
+  padding: 0 5px 10px 5px;
+}
+
+@keyframes animateMovieinfo{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity:1;
+  }
+}
+
+@keyframes animateGrid{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity:1;
+  }
 }
 
 @media screen and (max-width: 720px) {
   .actor-grid-content {
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto !important;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .actor-grid-content{
+    grid-template-columns: auto auto auto auto;
+  }
+  .movie-title {
+    font-size: 38px;
+  }
+  h4 {
+    padding-bottom: 10px;
+  }
+  h4,
+  p,
+  .movie-stats {
+    font-size: 16px !important;
+  }
+  .movieinfo-content,
+  .movieinfo-thumbnail {
+    position: initial;
+  }
+  .movieinfo {
+    height: 100%;
+  }
+  .movieinfo-container {
+    max-width: 500px;
+  }
+  .movieinfo-content {
+    gap: 30px;
+  }
+  .movieinfo-thumbnail {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .genres {
+    flex-wrap: wrap;
+    row-gap: 5px;
+  }
+  .movie-stats {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .movie-stats i {
+    min-width: 50px;
+    text-align: center;
   }
 }
 </style>
