@@ -1,7 +1,6 @@
 // eslint-disable-next-line
 <template>
   <div class="carousel-container">
-    {{ movies[0].id }}
     <div
       class="carousel"
       v-for="(feature, index) in features"
@@ -173,8 +172,7 @@ export default {
             (data) => (
               (movies.value = data.results),
               (pageCount = data.page),
-              getFeature(data.results),
-              console.log(movies.value)
+              getFeature(data.results)
             )
           );
       }
@@ -218,7 +216,6 @@ export default {
       for (var j = 0; j < numberOfFeatures; j++) {
         features.value.push(temp[j]);
       }
-      // console.log(features.value.length);
     };
     onBeforeMount(() => {
       getMovies();
