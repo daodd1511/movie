@@ -121,9 +121,8 @@ export default {
     mobileBreakpoint() {
       this.isMobile = window.innerWidth < 600;
     },
-    // Chỉ cần 1 event để kích hoạt là xong
-    autoplay(control) {
-      setInterval(control, 5000);
+    autoplay() {
+      setInterval(this.nextSlide, 6000);
     },
     nextSlide() {
       if (this.visibleSlide >= this.slideLen - 1) {
@@ -244,6 +243,7 @@ export default {
   mounted() {
     this.mobileBreakpoint();
     window.addEventListener("resize", this.mobileBreakpoint, { passive: true });
+    this.autoplay();
   },
 };
 </script>
@@ -390,7 +390,7 @@ button {
   text-decoration: none;
   color: #fff;
 }
-.movie-content h2:hover{
+.movie-content h2:hover {
   color: #42b883;
 }
 .movie-content p {
