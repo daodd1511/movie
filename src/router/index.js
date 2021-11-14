@@ -26,7 +26,7 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to)=>{
+router.beforeEach((to) => {
   document.title = to.name;
 });
 

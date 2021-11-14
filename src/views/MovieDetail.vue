@@ -96,12 +96,12 @@ export default {
     onBeforeMount(() => {
       fetch(env.BASE_URL + "/movie/" + route.params.id + "?" + env.API_KEY)
         .then((response) => response.json())
-        .then((data) => (movie.value = data))
+        .then((data) => (movie.value = data));
       fetch(
         env.BASE_URL + "/movie/" + route.params.id + "/credits?" + env.API_KEY
       )
         .then((response) => response.json())
-        .then((data) => (actors.value = data.cast))
+        .then((data) => (actors.value = data.cast));
     });
     return {
       movie,
@@ -158,7 +158,7 @@ h4 {
   transition: all 0.3s;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-} 
+}
 .movieinfo-content {
   width: auto;
   padding: 40px;
@@ -244,21 +244,21 @@ h4 {
   padding: 0 5px 10px 5px;
 }
 
-@keyframes animateMovieinfo{
-  0%{
+@keyframes animateMovieinfo {
+  0% {
     opacity: 0;
   }
-  100%{
-    opacity:1;
+  100% {
+    opacity: 1;
   }
 }
 
-@keyframes animateGrid{
-  0%{
+@keyframes animateGrid {
+  0% {
     opacity: 0;
   }
-  100%{
-    opacity:1;
+  100% {
+    opacity: 1;
   }
 }
 
@@ -268,7 +268,7 @@ h4 {
   }
 }
 @media screen and (max-width: 1024px) {
-  .actor-grid-content{
+  .actor-grid-content {
     grid-template-columns: auto auto auto auto;
   }
   .movie-title {

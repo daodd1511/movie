@@ -27,7 +27,9 @@
 *::selection {
   background: transparentize(#42b883, 0.5);
 }
-
+html {
+  scroll-behavior: smooth;
+}
 body {
   background-color: #111;
 }
