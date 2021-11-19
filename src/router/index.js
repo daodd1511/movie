@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import MovieDetail from "../views/MovieDetail.vue";
 import Search from "../views/Search.vue";
-
+import HomeV1 from "../views/HomeV1.vue";
+import MovieTypeDetail from "../views/MovieTypeDetail.vue";
 const routes = [
   {
     path: "/",
@@ -18,6 +19,16 @@ const routes = [
     path: "/search",
     name: "Search",
     component: Search,
+  },
+  {
+    path: "/v1",
+    name: "Home V1",
+    component: HomeV1,
+  },
+  {
+    path: "/type/:type",
+    name: "Type Detail",
+    component: MovieTypeDetail,
   },
 ];
 
