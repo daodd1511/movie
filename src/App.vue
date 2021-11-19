@@ -51,7 +51,9 @@ header h1 {
 header h1 span {
   color: #42b883;
 }
-
+main{
+  padding-bottom: 20px;
+}
 .search-btn {
   color: #42b883;
   font-size: 28px;
