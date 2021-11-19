@@ -1,11 +1,10 @@
 <template>
   <div class="carousel-container">
     <swiper
-      :loop="true"
-      :navigation="true"
       :slide-per-view="1"
-      :autoplay="{ delay: 5000 }"
-      @swiper="onSwiper"
+      :navigation="true"
+      :autoplay="{ delay: 5000, disableOnInteraction: false }"
+      :loop="true"
       class="carousel"
     >
       <swiper-slide v-for="feature in features.value" :key="feature.id">
@@ -66,12 +65,7 @@ export default {
         `https://api.themoviedb.org/3/movie/${this.type}?${env.API_KEY}&page=${this.page}`
       )
         .then((response) => response.json())
-        .then(
-          (data) => (
-            (this.features.value = data.results),
-            console.log(this.features.value)
-          )
-        );
+        .then((data) => (this.features.value = data.results));
     },
     onSwiper(swiper) {
       console.log(swiper);
