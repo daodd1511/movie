@@ -31,4 +31,5 @@ export default {
   .description {
     font-size: 24px;
   }
-}</style>
+}
+</style>
