@@ -10,6 +10,15 @@ const BACKDROP_URL = {
   large: "https://image.tmdb.org/t/p/w1280",
   original: "https://image.tmdb.org/t/p/original",
 };
+const GENRES = {
+  animation : 16,
+  history : 36,
+  drama : 18,
+  horror : 27,
+  music : 10402,
+  science : 878,
+  length : 6,
+}
 const SEARCH_URL = BASE_URL + "/search/movie?";
 export default {
   apikey: "bd93f7f1",
@@ -19,4 +28,5 @@ export default {
   IMG_URL,
   BACKDROP_URL,
   SEARCH_URL,
+  GENRES,
 };
