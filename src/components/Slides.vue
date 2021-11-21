@@ -5,20 +5,21 @@
       :space-between="15"
       :freeMode="true"
       :navigation="true"
-      :slides-per-group="3.3"
+      :slides-per-group="3"
       :breakpoints="{
         '768': {
           slidesPerView: 4.3,
           spaceBetween: 10,
-          slidesPerGroup: 4.3,
+          slidesPerGroup: 4,
         },
         '1024': {
           slidesPerView: 5.3,
           spaceBetween: 10,
-          slidesPerGroup: 5.3,
+          slidesPerGroup: 5,
         },
       }"
       class="test-swiper"
+      @slideChange="onSwiper"
     >
       <!-- @swiper="onSwiper" -->
       <swiper-slide v-for="movie in movieData.value" :key="movie.id">
@@ -49,7 +50,13 @@ export default {
   setup() {
     const imgurl = env.IMG_URL;
     const onSwiper = (swiper) => {
+      // if(swiper.isEnd){
+      //   console.log("Near the end :v");
+      // }
       console.log(swiper);
+      // if(swiper.isEnd){
+      //   this.$emit("endOfSlider", swiper.isEnd);
+      // }
     };
     return {
       imgurl,
