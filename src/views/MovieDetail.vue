@@ -42,8 +42,30 @@
   </div>
   <div class="actor-grid">
     <h1>Actors</h1>
-    <div class="actor-grid-content">
-      <div class="actor-grid-item" v-for="actor in actors" :key="actor.cast_id">
+    <swiper
+      :navigation="true"
+      :slides-per-view="2.3"
+      :space-between="10"
+      :slides-per-group="2"
+      :breakpoints="{
+        '768': {
+          slidesPerView: 4.3,
+          spaceBetween: 10,
+          slidesPerGroup: 4,
+        },
+        '1024': {
+          slidesPerView: 6.3,
+          spaceBetween: 10,
+          slidesPerGroup: 6,
+        },
+      }"
+      class="actor-grid-content"
+    >
+      <swiper-slide
+        class="actor-grid-item"
+        v-for="actor in actors"
+        :key="actor.cast_id"
+      >
         <img
           v-if="actor.profile_path != null"
           :src="actorurl + actor.profile_path"
@@ -58,17 +80,36 @@
         />
         <div class="actor-name">{{ actor.name }}</div>
         <div class="actor-character">{{ actor.character }}</div>
-      </div>
-    </div>
+      </swiper-slide>
+    </swiper>
   </div>
+
+  <TypeDescription type="" typeForHeader="Recommend" />
+  <MovieGrid type="" typeForHeader="" :id="movieID" />
 </template>
 
 <script>
 import { ref, onBeforeMount } from "vue";
 import { useRoute } from "vue-router";
 import env from "@/env.js";
+// Import Swiper Component
+import { Swiper, SwiperSlide } from "swiper/vue";
 
+// Import Swiper Styles
+import "swiper/swiper-bundle.min.css";
+import "swiper/swiper.min.css";
+
+import NavSwiper, { Navigation } from "swiper";
+import MovieGrid from "@/components/MovieGrid.vue";
+import TypeDescription from "@/components/TypeDescription.vue";
+NavSwiper.use([Navigation]);
 export default {
+  components: {
+    Swiper,
+    SwiperSlide,
+    MovieGrid,
+    TypeDescription,
+  },
   methods: {
     reverseDate(date) {
       date = date.split("-").reverse().join("-");
@@ -90,16 +131,15 @@ export default {
     const movie = ref({});
     const actors = ref([]);
     const route = useRoute();
+    const movieID = route.params.id;
     const backdropurl = env.BACKDROP_URL.large;
     const imgurl = env.BACKDROP_URL.overmedium;
     const actorurl = env.BACKDROP_URL.extrasmall;
     onBeforeMount(() => {
-      fetch(env.BASE_URL + "/movie/" + route.params.id + "?" + env.API_KEY)
+      fetch(env.BASE_URL + "/movie/" + movieID + "?" + env.API_KEY)
         .then((response) => response.json())
         .then((data) => (movie.value = data));
-      fetch(
-        env.BASE_URL + "/movie/" + route.params.id + "/credits?" + env.API_KEY
-      )
+      fetch(env.BASE_URL + "/movie/" + movieID + "/credits?" + env.API_KEY)
         .then((response) => response.json())
         .then((data) => (actors.value = data.cast));
     });
@@ -109,6 +149,7 @@ export default {
       imgurl,
       actors,
       actorurl,
+      movieID,
     };
   },
 };
@@ -206,7 +247,7 @@ h4 {
 
 .actor-grid {
   color: #111;
-  padding: 0 40px;
+  padding: 20px 20px;
 }
 .actor-grid h1 {
   font-size: 36px;
