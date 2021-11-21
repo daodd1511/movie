@@ -4,7 +4,6 @@
       :slide-per-view="1"
       :navigation="true"
       :autoplay="{ delay: 5000, disableOnInteraction: false }"
-      :loop="true"
       class="carousel"
     >
       <swiper-slide v-for="feature in features.value" :key="feature.id">
@@ -61,9 +60,7 @@ export default {
   },
   methods: {
     getFeatureData() {
-      fetch(
-        `https://api.themoviedb.org/3/movie/${this.type}?${env.API_KEY}&page=${this.page}`
-      )
+      fetch(`https://api.themoviedb.org/3/trending/movie/week?${env.API_KEY}`)
         .then((response) => response.json())
         .then((data) => (this.features.value = data.results));
     },
