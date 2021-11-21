@@ -1,15 +1,22 @@
 <template>
   <div class="slide-description">
     <h1 class="description">{{ this.typeForHeader }} Movies</h1>
-    <router-link :to="'/type/' + type" class="see-all-btn"
-      ><div>See all</div></router-link
-    >
+    <div v-if="hasType(type)">
+      <router-link :to="'/type/' + type" class="see-all-btn"
+        ><div>See all</div></router-link
+      >
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   props: ["typeForHeader", "type"],
+  methods: {
+    hasType(type) {
+      return type !== "";
+    },
+  },
 };
 </script>
 
