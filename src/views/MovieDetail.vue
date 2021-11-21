@@ -45,7 +45,7 @@
     <swiper
       :navigation="true"
       :slides-per-view="2.3"
-      :freeMode=""true"
+      :freeMode="true"
       :space-between="10"
       :slides-per-group="2"
       :breakpoints="{
