@@ -1,10 +1,8 @@
 <template>
   <div class="slide-description">
     <h1 class="description">{{ this.typeForHeader }} Movies</h1>
-    <div v-if="hasType(type)">
-      <router-link :to="'/type/' + type" class="see-all-btn"
-        ><div>See all</div></router-link
-      >
+    <div v-if="hasType(type)" class="see-all-btn">
+      <router-link :to="'/type/' + type">See all</router-link>
     </div>
   </div>
 </template>
@@ -24,15 +22,21 @@ export default {
 .slide-description {
   display: flex;
   justify-content: space-between;
-  padding: 0 10px;
+  padding: 0 20px;
+  margin-top: 40px;
 }
 .description {
   padding: 20px 0;
   color: #fff;
 }
 .see-all-btn {
-  color: #fff;
   margin: auto 20px;
+}
+.see-all-btn a {
+  color: #fff;
+}
+.see-all-btn a:hover {
+  color: #42b883;
 }
 @media screen and (max-width: 768px) {
   .description {
