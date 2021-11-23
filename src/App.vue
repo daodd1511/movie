@@ -11,7 +11,7 @@
     </router-link>
   </header>
   <main>
-    <router-view />
+    <router-view :key="$route.path" />
   </main>
 </template>
 
