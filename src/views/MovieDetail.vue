@@ -45,17 +45,17 @@
     <swiper
       :navigation="true"
       :slides-per-view="2.3"
-      :space-between="10"
+      :space-between="20"
       :slides-per-group="2"
       :breakpoints="{
         '768': {
           slidesPerView: 4.3,
-          spaceBetween: 10,
+          spaceBetween: 20,
           slidesPerGroup: 4,
         },
         '1024': {
           slidesPerView: 6.3,
-          spaceBetween: 10,
+          spaceBetween: 20,
           slidesPerGroup: 6,
         },
       }"
@@ -178,6 +178,7 @@ h4 {
   margin: 0 auto;
   background: rgba(0, 0, 0, 0.7);
   position: relative;
+  border-radius: 10px;
 }
 .movieinfo-thumbnail,
 .movieinfo-content {
@@ -188,6 +189,8 @@ h4 {
 .movieinfo-thumbnail {
   width: 350px;
   left: 0;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 .movie-thumb img {
   width: 500px;
@@ -263,11 +266,12 @@ h4 {
   row-gap: 40px;
 }
 .actor-grid-item {
-  background: #353535;
+  background: #242424;
   /* max-height: 430px; */
   animation: animateGrid 0.5s;
   overflow: hidden;
   color: #fff;
+  border-radius: 10px;
 }
 .actor-image {
   width: 100%;
