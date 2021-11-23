@@ -2,12 +2,20 @@
   <Carousel type="popular"></Carousel>
   <Slider type="popular" typeForHeader="Popular" genre="" />
   <Slider type="top_rated" typeForHeader="Top Rated" genre="" />
-  <Slider type="now_playing" typeForHeader="Now Playing" genre="" />
-  <Slider type="upcoming" typeForHeader="Upcoming" genre="" />
   <Slider
     type="animation"
     typeForHeader="Animation"
     :genre="this.getGenreName(`animation`)"
+  />
+  <Slider
+    type="comedy"
+    typeForHeader="Comedy"
+    :genre="this.getGenreName(`comedy`)"
+  />
+  <Slider
+    type="crime"
+    typeForHeader="Crime"
+    :genre="this.getGenreName(`crime`)"
   />
   <Slider
     type="drama"
@@ -30,9 +38,15 @@
     :genre="this.getGenreName(`music`)"
   />
   <Slider
-    type="science"
-    typeForHeader="Science Fiction"
-    :genre="this.getGenreName(`science`)"
+    type="romance"
+    typeForHeader="Romance"
+    :genre="this.getGenreName(`romance`)"
+  />
+  <Slider type="war" typeForHeader="War" :genre="this.getGenreName(`war`)" />
+  <Slider
+    type="western"
+    typeForHeader="Western"
+    :genre="this.getGenreName(`western`)"
   />
 </template>
 
