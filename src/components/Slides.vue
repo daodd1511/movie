@@ -1,25 +1,24 @@
 <template>
-  <div class="test">
+  <div class="slide">
     <swiper
-      :slides-per-view="3.3"
-      :space-between="15"
+      :slides-per-view="2.3"
+      :space-between="10"
       :freeMode="true"
       :navigation="true"
-      :slides-per-group="3"
+      :slides-per-group="2"
       :breakpoints="{
         '768': {
           slidesPerView: 4.3,
-          spaceBetween: 10,
+          spaceBetween: 15,
           slidesPerGroup: 4,
         },
         '1024': {
           slidesPerView: 5.3,
-          spaceBetween: 10,
+          spaceBetween: 15,
           slidesPerGroup: 5,
         },
       }"
-      class="test-swiper"
-      @slideChange="onSwiper"
+      class="slide-swiper"
     >
       <!-- @swiper="onSwiper" -->
       <swiper-slide v-for="movie in movieData.value" :key="movie.id">
@@ -72,12 +71,12 @@ export default {
 </script>
 
 <style scoped>
-.test {
+.slide {
   color: white;
-  padding: 10px;
+  padding: 10px 20px;
 }
 
-.test-swiper {
+.slide-swiper {
   display: grid;
 }
 .movie-thumb {
