@@ -154,7 +154,7 @@ export default {
 .search {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 20px 60px 20px;
+  padding: 0 20px 20px 20px;
   color: #fff;
 }
 .search-box {
