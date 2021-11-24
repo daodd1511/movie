@@ -112,8 +112,7 @@ export default {
   },
   methods: {
     reverseDate(date) {
-      date = date.split("-").reverse().join("-");
-      return date;
+      return date.split("-").reverse().join("-");
     },
     moneySeperator(money) {
       money = money.toLocaleString();
