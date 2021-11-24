@@ -1,19 +1,22 @@
 /* eslint-disable prettier/prettier */
 <template>
-  <header>
-    <router-link to="/">
-      <h1><span>Vue</span>Movies</h1>
-    </router-link>
-    <router-link :to="'/search'">
-      <div class="search-btn">
-        <i class="fas fa-search"></i>
-      </div>
-    </router-link>
-  </header>
+  <Header />
   <main>
     <router-view :key="$route.path" />
   </main>
+  <Footer />
 </template>
+<script>
+import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
+
+export default {
+  components: {
+    Header,
+    Footer,
+  },
+};
+</script>
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;200;300;400;500;600&display=swap");
@@ -36,39 +39,8 @@ body {
 a {
   text-decoration: none;
 }
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 40px;
-  background-color: #1c1c1c;
-  height: 100px;
-}
-header h1 {
-  color: #fff;
-  font-size: 38px;
-}
-header h1 span {
-  color: #42b883;
-}
 main {
   padding-bottom: 20px;
-}
-.search-btn {
-  color: #42b883;
-  font-size: 28px;
-  padding-right: 20px;
-}
-@media screen and (max-width: 600px) {
-  header {
-    padding: 25px;
-  }
-  header h1 {
-    font-size: 30px;
-  }
-  .search-btn {
-    padding: 0;
-    font-size: 25px;
-  }
+  padding-top: 6rem;
 }
 </style>
