@@ -46,6 +46,7 @@
       :navigation="true"
       :slides-per-view="2.3"
       :space-between="20"
+      :freeMode="true"
       :slides-per-group="2"
       :breakpoints="{
         '768': {
