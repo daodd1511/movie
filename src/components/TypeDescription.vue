@@ -1,6 +1,6 @@
 <template>
   <div class="slide-description">
-    <h1 class="description">{{ this.typeForHeader }} Movies</h1>
+    <h1 class="description">{{ this.typeForHeader }}</h1>
     <div v-if="hasType(type)" class="see-all-btn">
       <router-link :to="'/type/' + type">See all</router-link>
     </div>
