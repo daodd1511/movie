@@ -29,6 +29,9 @@ export default {
   padding: 20px 0;
   color: #fff;
 }
+.description::first-letter{
+  text-transform: capitalize;
+}
 .see-all-btn {
   margin: auto 20px;
 }
