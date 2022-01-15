@@ -31,6 +31,18 @@ const GENRES = [
   { id: 10752, name: "war" },
   { id: 37, name: "western" },
 ];
+const DISPLAY_GENRES = [
+  { id: 16, name: "animation" },
+  { id: 35, name: "comedy" },
+  { id: 80, name: "crime" },
+  { id: 18, name: "drama" },
+  { id: 36, name: "history" },
+  { id: 27, name: "horror" },
+  { id: 10402, name: "music" },
+  { id: 10749, name: "romance" },
+  { id: 10752, name: "war" },
+  { id: 37, name: "western" },
+];
 const SEARCH_URL = BASE_URL + "/search/movie?";
 export default {
   apikey: "bd93f7f1",
@@ -41,4 +53,5 @@ export default {
   BACKDROP_URL,
   SEARCH_URL,
   GENRES,
+  DISPLAY_GENRES,
 };
