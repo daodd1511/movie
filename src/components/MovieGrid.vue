@@ -72,7 +72,7 @@ export default {
           }?${env.API_KEY}&page=${page}`
         )
           .then((response) => response.json())
-          .then((data) => (this.movies.value = data.results));
+          .then((data) => (this.movies.value = data.results.slice(0, -1)));
       }
     },
     getColor(score) {
