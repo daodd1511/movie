@@ -5,7 +5,12 @@
       class="search-box"
       @submit="isSubmitted = true"
     >
-      <input type="text" placeholder="Search here" v-model="search" />
+      <input
+        type="text"
+        placeholder="Search here"
+        v-model="search"
+        @keyup="searchMovies(1, search), (isSubmitted = true)"
+      />
       <input type="submit" value="Search" />
     </form>
     <h1 class="popular" v-if="isSubmitted">Search Results</h1>
@@ -102,7 +107,7 @@ export default {
             movies.value = data.results;
             totalpage = data.total_pages;
             // console.log(totalpage);
-            // console.log(data);
+            console.log(data);
           });
       }
     };
@@ -112,8 +117,7 @@ export default {
       window.scrollTo(0, 0);
     };
     const loadLast = () => {
-      pageCount = totalpage;
-      searchMovies(pageCount, search.value);
+      searchMovies(totalpage, search.value);
       window.scrollTo(0, 0);
     };
     const loadNext = () => {
