@@ -106,8 +106,6 @@ export default {
           .then((data) => {
             movies.value = data.results;
             totalpage = data.total_pages;
-            // console.log(totalpage);
-            console.log(data);
           });
       }
     };
@@ -160,6 +158,7 @@ export default {
   margin: 0 auto;
   padding: 0 20px 20px 20px;
   color: #fff;
+  height: 1000px;
 }
 .search-box {
   height: 100px;
