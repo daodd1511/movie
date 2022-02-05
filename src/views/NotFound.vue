@@ -25,6 +25,10 @@
 =======================*/
 @import "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css";
 @import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;300;400;500;600;700&display=swap");
+/* main {
+  padding-bottom: 20px;
+  padding-top: 6rem;
+} */
 .page_404 {
   background: #fff;
   font-family: "Be Vietnam Pro", sans-serif;
