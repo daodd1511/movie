@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
 <template>
-  <Header />
+  <Header v-if="!$route.params.pathMatch" />
   <main>
     <router-view :key="$route.path" />
   </main>
-  <Footer />
+  <Footer v-if="!$route.params.pathMatch" />
 </template>
 <script>
 import Header from "@/components/Header.vue";
