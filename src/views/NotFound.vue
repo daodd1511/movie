@@ -4,9 +4,8 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="col-sm-10 col-sm-offset-1 text-center">
-            <div class="four_zero_four_bg">
-              <h1 class="text-center">404</h1>
-            </div>
+            <h1 class="text-center title">404</h1>
+            <div class="four_zero_four_bg"></div>
             <div class="contant_box_404">
               <h3 class="h2">Look like you're lost</h3>
               <p>the page you are looking for not avaible!</p>
@@ -27,7 +26,6 @@
 @import "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css";
 @import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;300;400;500;600;700&display=swap");
 .page_404 {
-  padding: 40px 0;
   background: #fff;
   font-family: "Be Vietnam Pro", sans-serif;
 }
@@ -42,7 +40,7 @@
   background-position: center;
 }
 
-.four_zero_four_bg h1 {
+.title {
   font-size: 80px;
 }
 
@@ -54,7 +52,7 @@
   color: #fff !important;
   padding: 10px 20px;
   background: #39ac31;
-  margin: 20px 0;
+  margin: 10px 0;
   display: inline-block;
 }
 .contant_box_404 {
