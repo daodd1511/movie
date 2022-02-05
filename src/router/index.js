@@ -30,6 +30,11 @@ const routes = [
     name: "Type Detail",
     component: MovieTypeDetail,
   },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: () => import("@/views/NotFound.vue"),
+  },
 ];
 
 const router = createRouter({
