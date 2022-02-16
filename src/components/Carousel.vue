@@ -96,7 +96,7 @@ export default {
   cursor: move;
 }
 .carousel {
-  height: 600px;
+  height: calc(100vh - 6rem);
   overflow-x: hidden;
 }
 .hero-content {
