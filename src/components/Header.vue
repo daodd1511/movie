@@ -19,24 +19,27 @@ export default {};
 header {
   position: fixed;
   z-index: 100;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 40px;
   background-color: #1c1c1c;
-  height: 6rem;
+  height: 5rem;
+  top: 0;
+  right: 0;
+  left: 0;
+  transition: all 0.4s;
 }
 header h1 {
   color: #fff;
-  font-size: 38px;
+  font-size: 32px;
 }
 header h1 span {
   color: #42b883;
 }
 .search-btn {
   color: #42b883;
-  font-size: 28px;
+  font-size: 24px;
   padding-right: 20px;
 }
 @media screen and (max-width: 600px) {
