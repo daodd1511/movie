@@ -1,4 +1,7 @@
 <template>
+  <div>
+    <Header :class="transparent_nav ? 'transparent-bg' : ''"></Header>
+  </div>
   <div class="carousel-container">
     <swiper
       :slide-per-view="1"
@@ -36,7 +39,7 @@
 <script>
 import { ref } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
-
+import Header from "@/components/Header.vue";
 // Import Swiper Styles
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
@@ -49,6 +52,7 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
+    Header,
   },
   data() {
     return {
@@ -56,6 +60,7 @@ export default {
       features: ref([]),
       page: 1,
       isMobile: false,
+      transparent_nav: true,
     };
   },
   methods: {
@@ -70,9 +75,18 @@ export default {
     mobileBreakpoint() {
       this.isMobile = window.innerWidth < 600;
     },
+    handleScroll() {
+      if (window.pageYOffset > 300) {
+        this.transparent_nav = false;
+      } else {
+        this.transparent_nav = true;
+      }
+      console.log(window.pageYOffset);
+    },
   },
   beforeMount() {
     this.getFeatureData();
+    window.addEventListener("scroll", this.handleScroll);
   },
   beforeUnmount() {
     if (typeof window === "undefined") return;
@@ -80,6 +94,7 @@ export default {
     window.removeEventListener("resize", this.mobileBreakpoint, {
       passive: true,
     });
+    window.removeEventListener("scroll", this.handleScroll);
   },
   mounted() {
     this.mobileBreakpoint();
@@ -89,6 +104,9 @@ export default {
 </script>
 
 <style scoped>
+.transparent-bg {
+  background-color: transparent !important;
+}
 .hero {
   background-size: 150%, cover !important;
   background-position: 50%, 50% !important;
@@ -96,7 +114,8 @@ export default {
   cursor: move;
 }
 .carousel {
-  height: calc(100vh - 6rem);
+  margin-top: -6rem !important;
+  height: calc(100vh - 5.5rem);
   overflow-x: hidden;
 }
 .hero-content {
