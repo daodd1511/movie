@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 <template>
-  <Header v-if="!$route.params.pathMatch" />
+  <Header v-if="!$route.params.pathMatch && $route.path != '/'" />
   <main>
     <router-view :key="$route.path" />
   </main>
@@ -41,6 +41,6 @@ a {
 }
 main {
   padding-bottom: 20px;
-  padding-top: 6rem;
+  padding-top: 5rem;
 }
 </style>
