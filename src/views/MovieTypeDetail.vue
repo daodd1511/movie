@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <!-- <h1 class="popular">Popular Movies</h1> -->
+    <h1 class="heading">{{ headType }}</h1>
     <MovieGrid :type="type" :typeForHeader="typeForHeader" id="" />
   </div>
 </template>
@@ -12,9 +12,17 @@ import MovieGrid from "@/components/MovieGrid.vue";
 export default {
   props: ["type", "typeForHeader"],
   components: { MovieGrid },
+  setup() {
+    const route = useRoute();
+    const headType = ref(route.params.type);
+    headType.value = headType.value.replace("_", " ");
+    return {
+      headType,
+      route,
+    };
+  },
   data() {
     return {
-      route: useRoute(),
       movies: ref([]),
       pageCount: 1,
       imgurl: env.IMG_URL,
@@ -26,4 +34,18 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.heading {
+  color: #fff;
+  padding: 20px;
+  padding-top: 40px;
+}
+.heading::first-letter {
+  text-transform: capitalize;
+}
+@media screen and (max-width: 768px) {
+  .heading {
+    font-size: 24px;
+  }
+}
+</style>

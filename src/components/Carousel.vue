@@ -81,7 +81,6 @@ export default {
       } else {
         this.transparent_nav = true;
       }
-      console.log(window.pageYOffset);
     },
   },
   beforeMount() {
