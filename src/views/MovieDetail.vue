@@ -264,10 +264,11 @@ h4 {
   grid-template-columns: auto auto auto auto auto auto;
   column-gap: 40px;
   row-gap: 40px;
+  max-width: 1280px;
 }
 .actor-grid-item {
   background: #242424;
-  /* max-height: 430px; */
+  max-height: 430px;
   animation: animateGrid 0.5s;
   overflow: hidden;
   color: #fff;
